@@ -1,0 +1,112 @@
+\chapter{Conclusions and Future Work}
+\label{sec:conclusions}
+
+\section{Overview}
+
+% ---
+
+This study has achieved its goal of addressing the challenge of accurately and timely predicting lightning strikes, an important task with the potential to save lives and prevent significant economic losses worldwide.
+
+The motivation for this research stems from the advancements in machine learning (ML) and deep learning (DL) models. Recent developments in neural networks have demonstrated that complex tasks can be accomplished using limited hardware, given the availability of sufficient data. In comparison to the extensive scale and complexity of numerical weather simulations, DL offers a more efficient approach to forecasting. Additionally, DL models are lightweight, portable, faster, and potentially more accurate.
+
+The application of DL models in this context has the potential to solve various problems. Apart from contributing to the field of artificial intelligence and machine learning through further research, these models can solve challenges such as:
+
+\begin{itemize}
+	\item improved timely warning systems for lightning strikes
+	\item aiding with the development of strategies for resource allocation
+	\item mitigation of environmental impacts caused by storms and lightning strikes
+\end{itemize}
+
+% ---
+
+The project was started with the objective of exploring the latest advancements in artificial intelligence and determining how to construct effective deep learning models for predicting lightning strikes across different time frames. To achieve this, data provided by the Swedish Meteorological and Hydrological Institute (SMHI) was collected and utilized. The Lightning Archive dataset, which contains comprehensive information on all lightning strikes in Sweden since January 2, 2012, was used, along with the MESAN (AROME) dataset, which serves as a repository of the meteorological data required for predictive modeling. Both datasets underwent extensive pre-processing, including methods such as filtering, balancing, binning, extraction, and imputation.
+
+Four deep learning models were evaluated in this study: Dense Neural Networks (DNN), Simple Recurrent Neural Networks (SRNN), Long Short Term Memory (LSTM), and Gated Recurrent Unit (GRU) models. The performance of these models was assessed using stratified k-fold cross-validation, a method in which data classes are equally split into a number of train/test partitions and measured across iterations. Various metrics, such as Training Time, F1 Score, Mean Absolute Error and Wilson Score were collected for each model.
+
+These metrics were evaluated across combinations of two additional evaluation factors: lookback and lookahead. The lookback refers to the size of the temporal dimension of each input (i.e. the length of each feature sequence) while the lookahead represents the size of the window within which the model is expected to make predictions.
+
+The hyperparameters for the models were determined using a genetic or evolutionary algorithm. A population of randomly generated combinations of hyperparameters from a predetermined set was created, and each combination was assigned a fitness score based on its efficiency. The next generation of candidates was then created based on the previous generation, with a higher emphasis on those with higher fitness scores. After three generations, the optimal parameters were found to be an architecture consisting of two recurrent layers with a size of 256 units.
+
+% ---
+
+Continuing with the data analysis, an exploratory analysis was conducted on the lightning dataset. This analysis played an important role in determining the pre-processing techniques for the lightning data. One important finding was that lightning strikes tend to occur in close proximity both spatially and temporally, highlighting the significance of the binning process.
+
+Similarly, an analysis was performed on the MESAN dataset. It was observed that the dataset contained multiple missing values, with some parameters completely missing. These missing values were considered invalid and were either imputed using the closest known value or dropped entirely. 
+
+To identify the optimal features for predicting lightning strikes, two methods were employed. First, a covariance matrix was used to illustrate the correlation between the available parameters. This matrix provided a simple and easily interpretable representation of the relationships between the parameters. Additionally, a Principal Component Analysis (PCA) was conducted to identify the parameters with the highest variance. Parameters with higher variance were preferred as they ensured the input data remained as independent as possible. This was expected to not only increased the accuracy of the models but also improved computational efficiency.
+
+The covariance matrix revealed a high correlation between certain parameters, such as \texttt{wet-bulb temperature}, \texttt{cloud base of significant clouds above sea}, \texttt{total cloud cover}, and \texttt{wind gust}. As a result, these parameters were dropped in favor of more independent features. Furthermore, the PCA analysis indicated that cloud-related parameters, such as cloud cover at various heights and the fraction of significant clouds, were the most useful for predicting lightning strikes. Precipitation-related parameters also showed significant importance. On the other hand, parameters related to temperature and wind were found to be less influential.
+
+% ---
+
+The results of the study are promising, showing that DL models are capable of differentiating instances with high likelihood of lightning strike. While all model types demonstrated an overall accuracy of above 75\%, some models excelled at specific combinations of lookback and lookahead.
+
+In general, two types of behavior were witnessed. The performance of the LSTM and GRU models varied greatly based on the lookback and lookahead combination, with decreasing performance as either value increased. Compared to the DNN and SRNN models they showed higher accuracy when considering shorter time frames, but experienced a sharp dropoff once the lookback is greater than 1 hour and lookahead is in between or above 6-12 hours. Between the LSTM and GRU models, the GRU model demonstrates higher performance across all metrics.
+
+The second type of behavior were shown by the DNN and SRNN models. These two models measured a close to constant, extremely stable performance regardless of the lookback/lookahead combination used, suggesting that they may be able to score high when predicting even further into the future. Compared to each other, the SRNN models demonstrated a higher performance in general by a small margin, at the expense of significantly longer training time.
+
+The training times were shown to differentiate highly between the model types, with the DNN model being the fastest one by far. This was followed by the GRU and LSTM models, of which the GRU models were slightly more performant. Lastly, the SRNN model was the slowest, being close to 15 times slower then the DNN model.
+
+\section{Challenges and Limitations Encountered}
+
+\subsection{Generalization and Transferability}
+
+Producing a model that can generalize and work effectively across various environments is an important aspect to consider in the prediction of lightning strikes. The ability to have a single model that can accurately predict lightning strikes regardless of the environment, geographic location, and time can greatly streamline the distribution of predictions by having a centralized, unified model.
+
+Traditionally, larger and more complex algorithms and systems tend to be less efficient at specific tasks. However, deep learning models have shown the opposite behavior, as they are able to increase their specific abilities and improve performance by generalizing \cite{whisper-generalization}. This means that deep learning models might have the potential to perform well across different environments.
+
+To ensure that the models are effectively generalizing, it is important to train them on larger datasets that cover different geographic locations. Using diverse data from various regions, the models can learn to capture the common patterns and characteristics of lightning strikes, regardless of the specific location. This will enhance the transferability of the models and enable them to make accurate predictions in new and unseen environments.
+
+\subsection{Data Availability and Processing}
+
+One of the primary challenges in developing DL models for lightning strike prediction is the availability and processing of data. Although the computational requirements pail in comparison to numeric models currently in use, obtaining sufficient and high-quality data is vital for training accurate models. However, the types and number of data parameters to include, as well as the standardization of units and error corrections, may vary depending on the geographic location and the source of the acquired datasets.
+
+The availability and standardization of data can be limited, especially in certain regions or for specific time periods. This scarcity of data can pose challenges in training models for variety and generalization effectively. To address this issue, future works could explore alternative methods, such as creating a larger number of smaller, local and more specialized models. Each model could be trained to predict lightning strikes in specific geographic locations using the data available, leveraging the available data for those regions. However, this approach may introduce difficulties in examining the effectiveness of different parameters, as the datasets used for training would vary.
+
+\subsection{Interpretability and Explainability}
+
+Deep learning models are often referred to as "black boxes" due to their complex and meticulous nature. They are known for being difficult to interpret and understand through simple inspection. This lack of interpretability and explainability can be a limitation when it comes to gaining insights into the inner workings of the models and understanding the factors that contribute to their predictions.
+
+Interpretability and explainability are important aspects, especially in critical applications. Stakeholders, including meteorologists and emergency response teams, need to have a clear understanding of how the models arrive at their predictions to help build trust in the models and enable better decision-making based on the predictions.
+
+Addressing the challenge of interpretation in deep learning models is an active area of research. Various techniques, such as feature visualization, attribution methods, and model-agnostic approaches, are currently being explored. By developing methods to interpret and explain the predictions of DL models, it is possible to enhance their transparency and facilitate their adoption in real-world applications.
+
+\section{Improvements and Future Work}
+
+\subsection{Dataset Selection and Pre-processing}
+
+The size of the dataset should be further explored. Experimenting with different sizes of the data can provide insights into the optimal amount of data required for accurate predictions. It is important to strike a balance between having enough data to capture the underlying patterns and avoiding overfitting the model. Additionally, the choice of features is critical. Exploring different combinations of features can help identify the most relevant features for the prediction task. It is also worth considering whether to include derived or compound parameters, as they may provide additional information that can improve the classification accuracy and model confidence.
+
+Furthermore, reformatting the parameters can be beneficial. For example, transforming parameter such as temperature or pressure to percentual changes can help capture the relative variations in the data, which may be more informative for the prediction models.
+
+\subsection{Evaluating Data Across Different Environments and Topologies}
+
+Lightning strikes can vary significantly depending on the geographic location and the surrounding environment. Factors such as temperature, humidity, elevation, and topography can all influence the occurrence and characteristics of lightning strikes. Therefore, including data from diverse environments ensures that the models can effectively capture the underlying patterns and make accurate predictions in different settings. This can help improve the models' ability to generalize and make accurate predictions in new and unseen locations.
+
+Furthermore, including the topological data from the region of focus also provide valuable insights. Different topologies, such as coastal areas, mountainous regions, or urban environments, can have unique characteristics that affect the occurrence and behavior of lightning strikes. By including environment data as features, the models can learn to adapt to these specific conditions and make more accurate predictions in similar settings.
+
+\subsection{Model Architecture and Hyperparameter Tuning}
+
+The choice of model architecture and hyperparameter tuning are important aspects to consider in improving the lightning prediction models. Different deep learning architectures, such as convolutional neural networks or recurrent neural networks can be explored to capture the spatial and temporal dependencies in the data. It would be beneficial to compare the performance of different architectures and select the one that yields the best results.
+
+Hyperparameter tuning is another crucial step in model development. Fine-tuning the hyperparameters, such as learning rate, batch size, and regularization techniques, can significantly impact the model's performance. The genetic process used in this study could run for longer periods, or alternative approaches may be explored such as Bayesian or grid search.
+
+Moreover, ensembling techniques can be employed to combine multiple models and improve the prediction accuracy. Techniques like bagging or boosting can be explored to leverage the diversity of multiple models and reduce the variance in predictions.
+
+\subsection{Balancing the Dataset with Similar Negative Samples}
+
+The current dataset used for training the storm and lightning prediction models consists of 50\% positive samples representing lightning strikes and 50\% randomly generated negative samples. However, this approach may not accurately reflect the real-world distribution of lightning occurrences, which are typically negatively skewed. In reality, there are far more samples where no lightning strike occurs compared to samples where it does.
+
+The imbalance in the dataset likely pose challenges for the models. Randomly sampling negative samples might have resulted in negative examples that are significantly different from the positive samples. As a result, the models can easily differentiate between the positive and negative samples, leading to high accuracy but limited generalization ability in environments where lightning strike prediction is practically used. In such environments, the positive feature sequences may closely resemble the negative sequences, making it difficult for the models to accurately predict lightning strikes.
+
+To address this issue, it is important to include more specific negative samples that are similar to the positive samples. By incorporating negative samples that closely resemble the positive samples, the models can learn to differentiate between the two more effectively. This can help improve the models' ability to generalize and make accurate predictions in environments where the feature sequences for positive and negative samples are highly similar.
+\newline
+
+\newpage
+\hrule
+\vspace{0.4cm}
+
+In conclusion, this study has successfully addressed the challenge of predicting lightning strikes using deep learning models. The results demonstrate that deep learning models can accurately identify samples of lightning strikes based on meteorological data with overall accuracies surpassing 75\%. The performance of the models varies based on the combination of lookback and lookahead used, with the LSTM and GRU models being more efficient when considering shorter time frames, and the DNN and SRNN models being more performant and stable overall.
+
+This study may contribute to the field of artificial intelligence and machine learning by demonstrating the effectiveness of deep learning models for predicting lightning strikes, as well as providing a baseline for input features and hyperparameters. Future work can focus on fine-tuning the models, incorporating more data, and evaluating their performance in real-world scenarios.
+

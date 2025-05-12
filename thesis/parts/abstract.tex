@@ -1,0 +1,19 @@
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\label{sec:abstract}
+
+%\begin{abstract}
+
+The accurate prediction of lightning strikes is crucial for disaster preparedness, risk mitigation, and resource allocation. Traditional numerical weather simulations, while effective, are computationally intensive and complex. Recent advancements in deep learning offer a promising alternative for more efficient and precise weather forecasting.
+
+This thesis aims to evaluate the effectiveness of various deep learning models in predicting lightning strikes. The study focuses on identifying the optimal model architectures, time frames, features, and hyperparameters to enhance prediction accuracy and lead-time.
+
+The research utilizes datasets from the Swedish Meteorological and Hydrological Institute, including the Lightning Archive and MESAN (AROME) datasets. Extensive pre-processing techniques such as filtering, balancing, binning, extraction, and imputation are applied. Four deep learning models-- Dense Neural Networks (DNN), Simple Recurrent Neural Networks (SRNN), Long Short Term Memory (LSTM), and Gated Recurrent Unit (GRU) are evaluated using stratified k-fold cross-validation. Metrics such as Training Time, F1 Score, Wilson Score, and Mean Absolute Error are used for model comparison. Hyperparameters are optimized using a genetic algorithm.
+
+The study demonstrates that deep learning models can accurately predict lightning strikes with overall accuracies exceeding 75\%. The LSTM and GRU models show higher performance for shorter time frames, while the DNN and SRNN models exhibit more stable and consistent performance across various time frames. The GRU model outperforms the LSTM model in all metrics, and the DNN model is the fastest in terms of training time.
+
+Deep learning models offer a viable and efficient alternative to traditional numerical weather simulations for lightning strike prediction. The findings highlight the importance of selecting appropriate lookback and lookahead values, as well as the need for high-quality, diverse datasets. Future work should focus on further fine-tuning the models, incorporating more data, and evaluating their performance in real-world scenarios.
+
+\textbf{Keywords:} Deep Learning, Lightning Prediction, Hyperparameter Tuning, Data Analysis, Model Comparison.
+
+%\end{abstract}

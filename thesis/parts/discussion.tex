@@ -1,0 +1,90 @@
+\chapter{Discussion}
+\label{sec:discussion}
+
+\section{Model Performance Across Time frames}
+
+The four different models has been evaluated and all demonstrates promising results. Each model exhibited high accuracy, with short-term lookback/lookahead combinations yielding an accuracy of 85-90\% or higher, similar to the results concluded by \textcite{new3}. It is worth noting that while all the models performed well overall, certain models excelled at specific combinations. This indicates that different models may be more suitable for different forecasting tasks, depending on the specific requirements and characteristics of the purpose.
+
+Interestingly, it can be observed that the training time remained consistent across different combinations of lookback and lookahead values. Contrary to initial expectation, higher lookback values did not result in longer training times. This may be attributed to underlying optimizations in the underlying Keras library or the way batch training is implemented, alternatively that the difference in number of timesteps were insufficient enough to be observable.
+
+Additionally, the lookahead value does not have a significant impact on the training time, as the amount of training data supplied to the models remained the same regardless of the lookahead value. The consistent training time across different combinations of lookback and lookahead values also suggests that the models can be trained efficiently on larger time frames without sacrificing computational performance.
+
+The accuracy and F1 score values for the LSTM and GRU models vary greatly depending on the lookback and lookahead values. Generally, higher lookback values (e.g. 24 and 48) result in lower accuracy and F1 score values, while lower lookback values (e.g. 1 and 3) result in higher accuracy and F1 score values. This suggests that considering a smaller number of previous time steps for prediction leads to better performance, while a higher lookback confuses the model. Increasing the lookahead from 1 to 3 or 6 improves the accuracy and F1 score slightly, but the mean error also increases. This suggests that the model struggles to accurately predict lightning strikes further into the future. This is the expected behavior as weather data is inherently unstable. As time progresses, more variations will affect the weather parameters which will cause the result to deviate from the prediction. Increasing the lookahead is therefore expected to show an exponential decrease in accuracy.
+
+The Mean Absolute Error and Wilson Score for the LSTM and GRU models values also follow a similar trend as accuracy and F1 score and remains relatively consistent, similar to the findings of \textcite{new2}. Smaller lookback values result in lower mean absolute error, indicating better prediction accuracy. Increasing the lookahead seems to decrease the confidence of the model, but does not have as drastic effect as lookback.
+
+For both the DNN and SRNN models, it is observed that the accuracy and F1 score remained consistent across different lookback and lookahead values. This consistency also extended to the confidence of the models. 
+
+This finding aligns with the previous observations that a lower lookback window and predicting based on short-term observations tend to result in better performance for the DNN model. It is important to note that the DNN model does not take time series into account and effectively uses a constant lookback of 1.
+
+Similarly, the consistent performance of the SRNN model can be attributed to the well-known issue of the vanishing gradient problem in recurrent neural networks \cite{rnn-vanishing-gradient}. The vanishing gradient problem arises due to the nature of RNNs, where the factors associated with older time points become exponentially smaller during backpropagation, making older time points in the feature sequence less relevant. While the vanishing gradient problem is typically considered a drawback for SRNN models, in this case, it might be beneficial as longer lookback values tend to confuse the models. The SRNN model may place higher emphasis on the earliest values, resulting in more stable performance and higher confidence.
+
+Overall, the findings suggest that using shorter lookback values and considering shorter feature sequences can lead to more effective models. Additionally, it can be observed that higher lookahead values negatively impacted the performance of LSTM and GRU models, while the performance of the DNN and SRNN models remained consistent. It is possible that the latter models may continue to exhibit similar accuracy even with higher lookahead values.
+
+\subsection{Lookback Deterioration}
+
+The obtained results are highly unexpected and would benefit from further investigation. Surprisingly, the LSTM and GRU models, which are specifically designed for time series prediction, exhibit better performance when not considering the time series aspect, compared to the DNN and SRNN models. Furthermore, the recurrent models are performing worse when actually taking time series into account. Multiple factors could contribute to this unexpected outcome:
+
+\begin{description}
+	\item[Nature of the problem:] A possible explanation is that the patterns indicative of a lightning strike may only emerge shortly before the actual occurrence of the strike. Incorporating older data might introduce extraneous patterns, thereby confusing the models.
+	\item[Model complexity:] The LSTM and GRU models are more complex and have a larger number of internal hyperparameters compared to the DNN and SRNN models. This increased complexity may allow the LSTM and GRU models to capture more intricate patterns and dependencies in the data, even without explicitly considering the time series nature of the data.
+	\item[Data quality:] The quality of the meteorological data used in the models may be insufficient. It is possible that the data lacks important features or contains noise, making it difficult for the models to extract meaningful information over time. This could lead to confusion and sub-optimal performance when the models attempt to incorporate the time series aspect.
+	\item[Model architecture:] The architecture of the LSTM and GRU models may not be well-suited for the specific characteristics of long-term meteorological data. It is possible that different hyperparameters or a different architecture combination, such as a convolutional neural network (CNN) or a transformer model, could better capture the spatial and temporal patterns present in the data.
+\end{description}
+
+\section{Comparison of model types}
+
+Each model exhibits distinct characteristics and traits, and selecting the most suitable model depends on the specific use case and purpose.
+
+When it comes to model confidence and prediction stability across time frames, the DNN and SRNN models are potential candidates. Both show high and consistent accuracy and F1 score regardless of lookahead value, and in the case of SRNN regardless of lookback. They do have some significant differences however, which may decide which one to use. The most prominent factor is the training time and computational requirements.
+
+The DNN and SRNN model exhibits a mean training time of 8.76 and 130.01 seconds respectively, a 14.84x faster training time of the DNN model. However, the SRNN model do demonstrate a slightly higher accuracy and confidence, suggesting that if raw training performance is of high importance, the SRNN model may be more suitable at the cost of computation time.
+
+The LSTM and GRU models shows a clear increase in performance for short lookback and lookahead values when compared to the DNN and SRNN models, reaching an unexpectedly high accuracy and F1 score of approximately of 91-93\%. This performance suffers a sharp dropoff for longer lookback/lookahead values. The threshold for this dropoff is estimated to be somewhere around a lookback of 1+ and a lookahead of somewhere between 6-12+ hours. The performance of LSTM and GRU after this point is at best on par with the DNN and SRNN models, most likely performing worse.
+
+Between the LSTM and GRU model, the GRU model is shown to be the most effective model, outperforming the LSTM model in all metrics. The GRU model shows both lower computational requirements, increased classification performance and increased confidence in its predictions.
+
+Summarized, the selection of the model type depends on the specific use case. For real-time applications, the DNN model is preferred, while the SRNN model is better suitable for higher accuracy and confidence. The LSTM and GRU models excel in short lookback and lookahead scenarios, with the GRU model being the most effective of the two.
+
+\section{Optimal Features}
+
+The optimal features are likely to vary depending on the source of the data. This study was limited by the datasets publicly released by SMHI, meaning only a handful of weather parameters were able to be compared and tested. The PC analysis (refer section \ref{sec:analysis-mesan-pca} on page \pageref{sec:analysis-mesan-pca}) shows which parameters contributes with the highest variance, and thereby importance.
+
+The proportion of variance between the PCs indicates that the parameters are relatively orthogonal and independent from each other, as 12 out of 15 PCs are required before reaching a 95\% comprehensiveness. The PCs in table \ref{tbl:pcx} reveals which parameters has the greatest impact on the overall variability of the dataset. PC1, while having the highest influence, is also dispersely influenced by its parameter loadings. It is primarily dependent on cloud-related factors such as \textit{Low cloud cover}, \textit{Medium cloud cover}, and \textit{Fraction of significant clouds}, indicating that these parameters are of importance for predicting lightning strikes. PC2 exhibits similar behavior, with a focus on the base and cover of significant clouds, as well as high cloud cover. On the other hand, PC3 is more influenced by precipitation-related parameters such as \textit{Precipitation} and \textit{Frozen part of precipitation}. Amongst the less important parameters seems to be \textit{snowfall}, \textit{temperature} and wind-related parameters, meaning these should be dropped if model performance is of priority in sacrifice of accuracy.
+
+\section{Optimal Hyperparameters}
+
+The hyperparameters obtained from the genetic algorithm are presented in section \ref{sec:analysis-hyperparameters}. However, due to the limited number of iterations, the results are likely to be suboptimal and can be significantly improved. It is recommended to further investigate this topic in future research.
+
+Additionally, these hyperparameters may not be the most efficient in every scenario. They should be re-evaluated if changes are made to the dataset or if different model types or lookback/lookahead combinations are used. The genetic algorithm evaluated LSTM models only. As such it is possible that the hyperparameters are sub-optimal for the other model types.
+
+One unexpected finding however was the absence of dense layers. The genetic algorithm determined that the recurrent layers alone were sufficient to capture the temporal changes in the input data and learn complex patterns. This suggests that the dense layers may not provide significant additional information in this particular context.
+
+The choice of activation functions also played an important role in achieving good performance. The tanh activation function was found to be effective for the recurrent layers, while the relu activation function was found to be effective for the dense layers.
+
+The use of dropout regularization for both the recurrent and dense layers seems to have helped prevent overfitting. A dropout rate of 0.2 was found to be optimal, indicating that dropping out 20\% of the inputs during training strikes a balance between preventing overfitting and retaining important information.
+
+The number of recurrent layers and the number of units in these layers were also important factors in achieving good performance. The genetic algorithm determined that two recurrent layers with 256 units each were optimal for the given dataset. This suggests that having multiple recurrent layers and a sufficient number of units in each layer allows for better capturing of the temporal changes in the input data.
+
+\section{Ethical Considerations \& Sustainability}
+
+The primary ethical consideration of this study is the transparency and interpretability of the models. Deep learning models are often criticized for being "black boxes", making it difficult to understand how they arrive at their predictions. This lack of transparency can hinder trust and acceptance among stakeholders, including meteorologists, emergency responders, and the general public. Efforts should be made to develop methods for interpreting and explaining the model's predictions, thereby enhancing transparency and accountability.
+
+From an environmental perspective, the computational resources required for training and deploying deep learning models can be substantial. Training deep learning models, particularly those with complex architectures like LSTM and GRU, can consume significant amounts of energy, contributing to carbon emissions. To address this, it is important to optimize the models for computational efficiency and explore the use of energy-efficient hardware and cloud computing resources powered by renewable energy sources.
+
+On the societal front, accurate lightning strike prediction can significantly contribute to disaster preparedness and risk mitigation, thereby enhancing community resilience. Early warnings of lightning strikes can save lives, reduce property damage, and minimize disruptions to critical infrastructure. This aligns with the broader goals of sustainable development by promoting safety, well-being, and economic stability.
+
+Balancing these factors and compare the models to current methods for lightning strike prediction is the key to achieve an ethical, sustainable and proper method of lightning prediction.
+
+\section{Broader Interpretation}
+
+The findings of this study may have important implications for the development and application of DL models for lightning forecasting. The high accuracy and performance of the models indicate that deep learning has the potential to be a valuable tool in this domain. However, it is important to consider the limitations and challenges associated with these models.
+
+One of the key insights from this study is the importance of selecting the appropriate lookback and lookahead values for the models. The results show that shorter lookback values and smaller feature sequences tend to result in better performance. This suggests that using a smaller number of previous time steps for prediction leads to more accurate results, and perhaps even shorter than hourly frequency may prove advantageous. Additionally, increasing the lookahead value beyond a certain threshold negatively impacts the performance of the models. This is likely due to the inherent uncertainty and variability of weather data, which might make it difficult to predict lightning strikes far into the future.
+
+Another important finding is the variation in performance across different model types. The LSTM and GRU models, which are specifically designed for time series prediction, exhibit better performance when not considering the time series aspect. One reason for this unexpected result is that the complexity of these models allows them to capture more complex patterns and dependencies in the data, even without explicitly considering the time series nature. On the other hand, the DNN model which does not explicitly consider time series, exhibit consistent performance across different lookback and lookahead values. This suggests that this model may be more suitable for real-time applications or situations where computational efficiency is a priority.
+
+The findings also highlight the importance of data quality and availability. The performance of the models is highly dependent on the quality and quantity of the meteorological data used for training. Insufficient or noisy data can lead to sub-optimal performance and inaccurate predictions. Therefore, it is of importance to ensure that the data used for training is of high quality and covers a broad range of geographic locations and time periods. This will enhance the generalization and transferability of the models, allowing them to make accurate predictions in new and unseen environments.
+
+Lastly, the challenge of interpretability in deep learning models is an important consideration. The complex nature of neural networks makes it difficult to understand the factors that contribute to their predictions. Addressing this challenge is an active area of research and will allow their adoption into practical applications.
+

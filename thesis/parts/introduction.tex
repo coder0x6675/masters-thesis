@@ -1,0 +1,82 @@
+\chapter{Introduction}
+\label{sec:introduction}
+
+\section{Background}
+
+The analysis of storms and lightning patterns holds immense significance for society, as it impacts multiple important sectors including infrastructure, agriculture, transportation, and public safety. Accurate prediction of lightning strikes can greatly contribute to disaster preparedness, risk mitigation, and resource allocation. Historically, meteorologists have heavily relied on numerical models and simulations to make forecasts. These methods require massive computational resources. They are centralized and extremely complex, operating a global network of sensors causing communication overhead. However, the emergence of artificial intelligence (AI), machine learning (ML), and specifically deep learning (DL) has opened up new avenues for more precise, efficient, and effective prediction methods.
+
+In recent years, the field of deep learning has witnessed remarkable advancements, revolutionizing various domains, including weather prediction. Deep learning models, inspired by the structure and functioning of the human brain, have demonstrated exceptional capabilities in processing and analyzing complex data patterns. By leveraging large datasets and powerful computational resources, deep learning models can automatically learn intricate relationships and patterns from the data, making them suitable for accurate meteorological predictions.
+
+One of the key advantages of deep learning models is their ability to extract high-level patterns from raw data, eliminating the need for manual development. This pattern extraction process allows the models to capture subtle and non-linear relationships between different meteorological variables, which are often challenging to identify using traditional numerical models. Consequently, deep learning models have the potential to enhance the accuracy and reliability of lightning prediction.
+
+\subsection{Significance}
+
+Accurate prediction of storms and lightning strikes holds great significance due to its wide-ranging impact on various stakeholders. Severe storms can cause significant damage to communities, resulting in property damage and loss of life.
+
+\subsubsection{Early Warnings}
+
+Early notification of approaching storms and lightning strikes can be life-saving for governments, emergency responders and individuals. This advance warning provides a valuable opportunity to take proactive measures, such as initiating evacuations, reinforcing infrastructure, and mobilizing resources.
+
+Furthermore, accurate storm and lightning prediction can also benefit various industries. For example, the aviation industry heavily relies on weather forecasts to ensure the safety of flights and mitigate disruptions caused by severe weather conditions. Accurate prediction models can enable airlines to make informed decisions regarding flight routes and schedules, reducing the risk of accidents and delays.
+
+\subsubsection{Efficient Resource Allocation}
+
+Many governments, companies, and organizations rely on weather forecasts to plan and allocate resources effectively. Access to improved and more accurate predictions enables better decision-making regarding the timing, method, and location of resource allocation.
+
+This can not only reduce cost but also save lives. Lightning strikes can damage power infrastructure, disrupt communication networks, and pose a threat to individuals engaged in outdoor activities. By accurately forecasting lightning strikes, these industries can take proactive measures and develop better strategies that minimizes the affected infrastructure to ensure the safety of their employees and customers.
+
+\subsubsection{Environmental Impact}
+
+Accurate storm and lightning forecasts can have a severe impact on environmental preservation and sustainability. By understanding storm behavior and patterns, it is possible to implement measures to manage potential environmental impacts such as:
+
+\begin{description}
+	\item[Stormwater runoff] which can lead to flooding and damage infrastructure. Accurate predictions allows for preparation and implementation of strategies to mitigate runoff, such as proper drainage systems and green infrastructure.
+	\item[Soil erosion] which is when soil is moved or displaced. Predicting storm behavior and patterns can help implement erosion control measures like contour plowing and cover crops.
+	\item[Lightning-induced wildfires] which is a severe problem in geographically hot and dry locations. Through predicting thunderstorms it is possible to implement fire management strategies to minimize the impact on biodiversity.
+\end{description}
+
+\subsubsection{Contribution to the Field}
+
+This research also contributes to the broader field of meteorology by evaluating cutting-edge artificial intelligence and machine learning techniques. It demonstrates how these technologies can greatly enhance our understanding of weather patterns and climate change. By improving storm and lightning prediction models, this research makes the way for further advancements in the field, leading to more accurate and reliable forecasts. This, in turn, can help mitigate the impact of severe weather events and improve overall preparedness and response strategies.
+
+\subsection{Current Methods for Lightning Forecasting}
+
+At the time of writing, the vast majority of weather forecasting operations uses numerical methods \cite{bib7} for weather forecasting. In these methods a set of non-linear equations are calculated to simulate the global environmental system in entirety. From a theoretical standpoint this is the optimal approach, utilizing established rules of physics to accurately predict weather phenomena. In practice however, there are many factors that limits the efficiency of such methods. Small variations in the input data has a drastic effect on the resulting outcome \cite{bib8}. An incorrect measurement, a temperature fluctuation not picked up by sensors or differences in sensor hardware can render predictions highly unstable, especially in the long term. The data collection and simulation also has to be performed on a globally large scale, requiring massive computational resources and a comprehensive network of distributed sensor arrays to provide useful results in real-time.
+
+Because of these restrictions artificial intelligence and machine learning models are seen as promising alternatives. Their ability to automatically extract patterns from complex data makes them useful in scenarios where correlation between features and labels is obvious but hard to identify \cite{bib8}.
+
+%Artificial intelligence in general weather prediction has gained a lot of interest lately, with the new advances in the field of deep learning. New, previously foreign ways of predicting weather have been made possible. One example is convolutional neural network models that operates on two-dimensional data like satelite images or enviornmental maps \cite{bib9}. Others have seen promising results with time-series prediction with specific prediction labels using recurrent neural networks and long-short term memory models, that are able to take all of the previous instances into account when predicting the next instance \cite{bib10}. There has also been attempts to merge the numerical approach and deep-learning models to produce hybrid or ensamble models able to be both data-driven and theory guided.
+
+%Regarding lightning prediction in specific, not much research has been done. One such study uses lightning data from the South African Lightning Detection Network to compare recurrent LSTM networks with older autoregressive methods \cite{bib10}, and prooves that LSTM is able to provide superiour results. They do however train the model solely based on empirical and statistical data, and does not mention taking other weather parameters into account such as pressure, humidity or temperature.
+
+\section{Scope}
+
+The scope of this thesis is centered on the application of deep learning models for the prediction of lightning strikes, with a particular focus on the Swedish region. The study aims to explore the potential of various deep learning architectures, including Dense Neural Networks (DNN), Simple Recurrent Neural Networks (SRNN), Long Short Term Memory (LSTM), and Gated Recurrent Unit (GRU) models, in accurately forecasting lightning strikes based on meteorological data. The datasets utilized in this research are provided by the Swedish Meteorological and Hydrological Institute (SMHI), specifically the Lightning Archive dataset and the MESAN (AROME) dataset.
+
+The scope is deliberately narrowed to ensure a comprehensive and in-depth analysis of the problem. By focusing on a specific geographic region, a defined set of deep learning models and a specific set of data the study aims to provide detailed insights into the effectiveness of these models in lightning strike prediction. This approach allows for a thorough examination of the pre-processing techniques, model configurations, and hyperparameter tuning required to optimize the performance of the models.
+
+The following research questions will guide this study in order to achieve the objective:
+
+\begin{enumerate}
+	\item How do the selected models perform across different time frames?
+	\item Which selected models are the most effective for predicting the occurrence of lightning strikes, and how do they compare to each other?
+	\item What are the optimal features for predicting lightning strikes?
+	\item What are the optimal hyperparameters and model configurations for lightning strike prediction?
+\end{enumerate}
+
+These questions are designed to clarify the scope by providing a clear framework for the research. The study aims to fill the research gap identified in the field of lightning strike prediction using deep learning models, which has not been extensively explored compared to other weather prediction tasks.
+
+\newpage
+\section{Outline}
+
+This thesis consists of six chapters that address different aspects of deep learning models for lightning strike prediction. The chapters are as follows:
+
+\begin{enumerate}
+	\item Introduction: The current chapter provides background information on the importance of accurate lightning strike prediction and the potential of deep learning in weather forecasting. It outlines the research questions and scope of the study.
+	\item Related Work: Reviews existing literature on deep learning models for weather prediction, with a focus on lightning strike prediction. Discusses different model types, challenges, and previous studies. Covers feature selection and hyperparameter tuning techniques.
+	\item Methodology: Details the research design, including dataset selection, preprocessing methods, and model development. Describes the hyperparameter tuning process and evaluation metrics used.
+	\item Results and Analysis: Presents the results of the study, including an analysis of the LIGHT and MESAN datasets. Evaluates model performance across different time frames and discusses the impact of lookback and lookahead values.
+	\item Discussion: Interprets the results in the context of the research questions and the field of lightning prediction. Compares the performance of different model types and addresses challenges and limitations. Explores implications for future research and applications.
+	\item Conclusions and Future Work: Summarizes the key findings and contributions of the study. Provides recommendations for future work, including dataset selection, model architecture, and hyperparameter tuning. Reflects on the overall impact and significance of the study.
+\end{enumerate}
+

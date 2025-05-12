@@ -1,0 +1,32 @@
+digraph {
+
+	pad = 0
+	margin = 0
+	ratio = 0.7
+	rankdir = LR
+
+	graph [splines=false, penwidth=0]
+	edge [labelangle=15, labeldistance=2.5]
+	node [shape="circle"]
+
+	subgraph cluster_l1 {
+		node [penwidth=0, margin=0]
+		C [label=<i<sub>...</sub>>]
+		B [label=<i<sub>2</sub>>]
+		A [label=<i<sub>1</sub>>]
+	}
+
+	subgraph cluster_l2 {
+		D [label=<&#931; |  <i>f</i>>, margin=0.05]
+	}
+
+	subgraph cluster_l3 {
+		node [margin=0.00, penwidth=0]
+		E [label="Output"]
+	}
+
+	C -> D [headlabel=<w<sub>...</sub>>, labelangle=25]
+	B -> D [headlabel=<w<sub>2</sub>>]
+	A -> D [headlabel=<w<sub>1</sub>>]
+	D -> E
+}

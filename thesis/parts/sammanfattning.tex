@@ -1,0 +1,15 @@
+\chapter*{Sammanfattning}
+\addcontentsline{toc}{chapter}{Sammanfattning}
+\label{sec:sammanfattning}
+
+Den exakta förutsägelsen av blixtnedslag är avgörande för katastrofberedskap, riskreducering och resursallokering. Traditionella numeriska vädersimuleringar är, även om de är effektiva, beräkningsintensiva och komplexa. De senaste framstegen inom djupinlärning erbjuder ett lovande alternativ för mer effektiv och exakt väderprognos.
+
+Denna avhandling syftar till att utvärdera effektiviteten hos olika modeller för djupinlärning för att förutsäga blixtnedslag. Studien fokuserar på att identifiera de optimala modellarkitekturerna, tidsramar, ingångsparametrar och hyperparametrar för att förbättra prediktionsnoggrannheten och ledtiden.
+
+Forskningen använder datauppsättningar från Sveriges meteorologiska och hydrologiska institut, inklusive datauppsättningarna Lightning Archive och MESAN (AROME). Omfattande förbearbetningstekniker som filtrering, balansering, binning, extraktion och imputering tillämpas. Fyra modeller för djupinlärning-- Dense Neural Network (DNN), Simple Recurrent Neural Network (SRNN), Long Short Term Memory (LSTM) och Gated Recurrent Unit (GRU) utvärderas med hjälp av stratifierad k-faldig korsvalidering. Mätvärden som träningstid, F1-poäng, Wilson-poäng och genomsnittligt absolut fel används för modelljämförelse. Hyperparametrar optimeras med hjälp av en genetisk algoritm.
+
+Studien visar att djupinlärningsmodeller kan förutsäga blixtnedslag exakt med en total noggrannhet som överstiger 75\%. LSTM- och GRU-modellerna visar högre prestanda för kortare tidsramar, medan DNN- och SRNN-modellerna uppvisar mer stabil och konsekvent prestanda över olika tidsramar. GRU-modellen överträffar LSTM-modellen i alla mätvärden, och DNN-modellen är snabbast när det gäller träningstid.
+
+Modeller för djupinlärning erbjuder ett hållbart och effektivt alternativ till traditionella numeriska vädersimuleringar för att förutsäga blixtnedslag. Resultaten understryker vikten av att välja lämpliga tillbakablicks- och framtidsvärden, såväl som behovet av högkvalitativa, olika datauppsättningar. Framtida arbete bör fokusera på att ytterligare finjustera modellerna, införliva mer data och utvärdera deras prestanda i verkliga scenarier.
+
+\textbf{Sökord:} Djupinlärning, Blixförutsägning, Hyperparameteroptimisering, Dataanalys, Modelljämförelse.

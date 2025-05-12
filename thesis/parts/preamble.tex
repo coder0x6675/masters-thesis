@@ -1,0 +1,106 @@
+\documentclass[11pt, a4paper, notitlepage]{report}
+
+% "Variables"
+\newcommand{\gettitle}{Comparing Deep Learning Models for Lightning Strike Prediction in a Changing Climate}
+\newcommand{\getsubtitle}{An Empirical Study}
+\newcommand{\getauthor}{NAME REDACTED}
+\newcommand{\getdegree}{Master of Science in Computer Security}
+\newcommand{\getemail}{\href{mailto:aiai18@student.bth.se}{aiai18@student.bth.se}}
+\newcommand{\getinstitute}{Blekinge Institute of Technology}
+\newcommand{\getperiod}{20 weeks}
+\newcommand{\getfaculty}{Faculty of Computing}
+\newcommand{\getsupervisor}{Senior lecturer NAME REDACTED}
+\newcommand{\getsupervisoraffiliation}{Department of Computer Science}
+\newcommand{\getcompany}{\textit{Zenon}}
+\newcommand{\getfootnote}{\getfaculty. \getinstitute. 371 79 Karlskrona, Sweden.}
+
+% Packages
+\usepackage[margin=3cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{subcaption}
+\usepackage{microtype}
+\usepackage{todonotes}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{lipsum}
+\usepackage{float}
+
+\usepackage[english]{isodate}
+\isodate
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+{\normalfont \LARGE \bfseries}
+{\chaptertitlename \  \thechapter}
+{-23pt}
+{\hrulefill \newline \huge \raggedleft}
+\titlespacing*{\chapter}{0pt}{0pt}{1cm}
+
+\usepackage[style=ieee]{biblatex}
+\addbibresource{thesis.bib}
+
+\usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\usepackage{listings}
+\lstdefinestyle{lst-style}{
+	backgroundcolor   = \color{backcolour},   
+	commentstyle      = \color{codegreen},
+	keywordstyle      = \color{magenta},
+	numberstyle       = \tiny\color{codegray},
+	stringstyle       = \color{codepurple},
+	basicstyle        = \ttfamily\footnotesize,
+	breakatwhitespace = false,         
+	breaklines        = true,                 
+	captionpos        = b,                    
+	keepspaces        = true,                 
+	numbers           = left,                    
+	numbersep         = 5pt,                  
+	showspaces        = false,                
+	showstringspaces  = false,
+	showtabs          = false,                  
+	tabsize           = 4
+}
+\lstset{style = lst-style}
+\renewcommand\lstlistlistingname{List of Listings}
+
+% OBS! Must be the last included package.
+% https://www.overleaf.com/learn/latex/Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks = true,
+	linkcolor  = blue,
+	filecolor  = magenta,      
+	urlcolor   = cyan,
+	pdftitle   = {\gettitle},
+}
+\urlstyle{same}
+
+% "Functions"
+\newcommand\blankfootnote[1]{
+	\let\thefootnote\relax\footnotetext{#1}
+	\let\thefootnote\svthefootnote
+}
+
+\newcommand\blankpage{
+	\clearpage
+	\begingroup
+		\null
+		\thispagestyle{empty}
+		\hypersetup{pageanchor=false}
+		\clearpage
+	\endgroup
+}
+
+% Metadata
+\title{\gettitle}
+\author{\getauthor}
+\date{\today}
+

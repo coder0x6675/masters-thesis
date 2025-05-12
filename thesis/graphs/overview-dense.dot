@@ -1,0 +1,28 @@
+digraph {
+
+	pad = 0
+	margin = 0
+	rankdir = LR
+	ranksep = 0.2
+
+	graph [splines=false, penwidth=0]
+	node [shape="circle", label=""]
+	edge [headport="w"]
+
+	subgraph cluster_L1 {
+		label="Input layer";
+		A; B;
+	}
+
+	subgraph cluster_L2 {
+		label="Hidden layer";
+		C; D; E;
+	}
+
+	subgraph cluster_L3 {
+		label="Output layer";
+		F;
+	}
+
+	{A, B} -> {C, D, E} -> {F}
+}
